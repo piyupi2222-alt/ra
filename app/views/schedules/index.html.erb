@@ -1,0 +1,143 @@
+<div class="d-flex justify-content-between mb-4">
+
+  <div>
+    <h1>予定一覧</h1>
+
+    <p>
+      本日の日付：
+      <%= Time.zone.today.strftime("%Y/%m/%d") %>
+    </p>
+
+    <p>
+      予定合計：
+      <%= @schedules.count %>件
+    </p>
+  </div>
+
+  <div>
+    <%= link_to "予定を新規追加",
+                new_schedule_path,
+                class: "btn btn-primary" %>
+  </div>
+
+</div>
+
+<div class="card shadow-sm">
+  <div class="card-body">
+
+    <table class="table table-hover">
+
+      <thead class="table-light">
+        <tr>
+          <th>ID</th>
+          <th>タイトル</th>
+          <th>開始日</th>
+          <th>終了日</th>
+          <th>終日</th>
+          <th>更新日時</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+
+      <tbody>
+
+        <% @schedules.each do |schedule| %>
+
+          <tr>
+
+            <td><%= schedule.id %></td>
+
+            <td><%= schedule.title %></td>
+
+            <td>
+              <%= format_date(schedule.start_date) %>
+            </td>
+
+            <td>
+              <%= format_date(schedule.end_date) %>
+            </td>
+
+            <td>
+              <%= schedule.all_day ? "○" : "" %>
+            </td>
+
+            <td>
+              <%= format_datetime(schedule.updated_at) %>
+            </td>
+
+            <td>
+
+              <%= link_to "詳細",
+                          schedule_path(schedule),
+                          class: "btn btn-sm btn-info" %>
+
+              <%= link_to "編集",
+                          edit_schedule_path(schedule),
+                          class: "btn btn-sm btn-success" %>
+
+              <button type="button"
+                      class="btn btn-sm btn-danger"
+                      data-bs-toggle="modal"
+                      data-bs-target="#deleteModal<%= schedule.id %>">
+                削除
+              </button>
+
+              <!-- Modal -->
+              <div class="modal fade"
+                   id="deleteModal<%= schedule.id %>"
+                   tabindex="-1">
+
+                <div class="modal-dialog">
+                  <div class="modal-content">
+
+                    <div class="modal-header">
+
+                      <h5 class="modal-title">
+                        削除確認
+                      </h5>
+
+                      <button type="button"
+                              class="btn-close"
+                              data-bs-dismiss="modal">
+                      </button>
+
+                    </div>
+
+                    <div class="modal-body">
+                      予定を削除しますか？
+                    </div>
+
+                    <div class="modal-footer">
+
+                      <button type="button"
+                              class="btn btn-secondary"
+                              data-bs-dismiss="modal">
+                        キャンセル
+                      </button>
+
+                      <%= link_to "削除する",
+                                  schedule_path(schedule),
+                                  data: {
+                                    turbo_method: :delete
+                                  },
+                                  class: "btn btn-danger" %>
+
+                    </div>
+
+                  </div>
+                </div>
+
+              </div>
+
+            </td>
+
+          </tr>
+
+        <% end %>
+
+      </tbody>
+
+    </table>
+
+  </div>
+</div>
