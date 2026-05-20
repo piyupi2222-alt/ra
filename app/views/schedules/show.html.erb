@@ -1,0 +1,52 @@
+<h1 class="mb-4">
+  予定詳細
+</h1>
+
+<div class="card shadow-sm">
+  <div class="card-body">
+
+    <table class="table">
+
+      <tr>
+        <th>タイトル</th>
+        <td><%= @schedule.title %></td>
+      </tr>
+
+      <tr>
+        <th>開始日</th>
+        <td>
+          <%= format_date(@schedule.start_date) %>
+        </td>
+      </tr>
+
+      <tr>
+        <th>終了日</th>
+        <td>
+          <%= format_date(@schedule.end_date) %>
+        </td>
+      </tr>
+
+      <tr>
+        <th>終日</th>
+        <td>
+          <%= @schedule.all_day ? "○" : "" %>
+        </td>
+      </tr>
+
+      <tr>
+        <th>メモ</th>
+        <td><%= @schedule.memo %></td>
+      </tr>
+
+    </table>
+
+    <%= link_to "編集する",
+                edit_schedule_path(@schedule),
+                class: "btn btn-success" %>
+
+    <%= link_to "一覧へ戻る",
+                schedules_path,
+                class: "btn btn-secondary" %>
+
+  </div>
+</div>
