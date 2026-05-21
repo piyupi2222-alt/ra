@@ -1,0 +1,28 @@
+
+
+  @import "bootstrap";
+
+body {
+  background-color: #f8f9fa;
+}
+
+.container {
+  max-width: 1100px;
+}
+
+.card {
+  border-radius: 12px;
+}
+
+.table th,
+.table td {
+  vertical-align: middle;
+}
+
+.required {
+  color: red;
+}
+
+textarea.form-control {
+  min-height: 150px;
+}
